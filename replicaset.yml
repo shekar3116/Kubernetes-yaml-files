@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replicaset-pod
+  labels:
+    app: replica
+    type: servers
+spec:
+  template:
+    metadata:
+      name: replicaset-pod
+      labels:
+        app: replica
+        type: servers
+    spec:
+      containers:
+      - name: web-server
+        image: centos
+  replicas: 2
+  selector:
+     matchLabels:
+        type: servers
