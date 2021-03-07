@@ -1,0 +1,16 @@
+##Create another pod named 'bee' with the NGINX image, which has a toleration set to the taint Mortein
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bee
+spec:
+  containers:
+  - image: nginx
+    name: bee
+  tolerations:
+  - key: spray
+    value: mortein
+    effect: NoSchedule
+    
