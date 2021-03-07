@@ -27,3 +27,36 @@ spec:
                 operator: In
                 values:
                 - blue
+
+
+Create a new deployment named red with the nginx image and 3 replicas, and ensure it gets placed on the master/controlplane node only.
+
+
+Use the label - node-role.kubernetes.io/master - set on the master/controlplane node.
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: nginx
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: Exists
