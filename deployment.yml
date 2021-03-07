@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-pod
+  labels:
+    apps: deployment
+    type: dep-servers
+spec:
+  template:
+    metadata:
+      name: deployment-pod
+      labels:
+        app: deployment
+        type: dep-servers
+    spec:
+      containers:
+      - name: httpd
+        image: centos:latest
+  replicas: 2
+  selector:
+    matchLabels:
+      type: dep-servers
